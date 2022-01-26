@@ -1,15 +1,15 @@
 # глобална променлива
 
 # 1. дефиниция на функцията
-def show(title,a=100, *args, **kwargs):
+def show(title, *args, a=100, **kwargs):
     print(f'title={title}')
-
-    print(f'optional param a:{a}')
 
     print(f'args:')
     for v in args:
         print(v, end=' ')
     print()
+
+    print(f'keyword-only args:{a}')
 
     print('kwargs:')
     kw = {
@@ -22,20 +22,15 @@ def show(title,a=100, *args, **kwargs):
 if __name__ == '__main__':
 #   
     # 2. извикване на функ.
-    # show('Text Editor')
+    
 
-    # show('Text Editor', 12)
 
-    # show('Text Editor', 12, 1,2,3,4)
-
-    show('Text Editor', 12, 1,2,3,4, path='/usr/local', version='1.2.3')
-    show('Text Editor', 12, 1,2,3,4, version='3.2.3',path='/usr/lib')
-    show('Text Editor', 12, 1,2,3,4, version='3.3.3')
     app = {
         'service':'mysql',
         'path':'/usr/local', 
         'port':3307,
         'version':'1.2.3'
     }
-    show('Title', 5, **app)
+    show('Title', 5,2,4, **app)
+    show('Title', 5,2,4,a = 22, **app)
     print('---')
