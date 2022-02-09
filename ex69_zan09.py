@@ -1,5 +1,8 @@
 # 1. дефиниция на класа
 
+from math import sqrt
+
+
 class Point():
     
     def __init__(self, *args, x=0, y=0, **kwargs):
@@ -28,7 +31,7 @@ class Point():
     def x(self, x):
         # if x < 0:
         #     raise ValueError(f'negative value:{x}') 
-        assert type(x) is int and x >=0, f'x must be positive int number ({x})' 
+        assert isinstance(x,(int,float)) and x >=0, f'x must be positive int number ({x})' 
         self.__x = x
 
     @property    
@@ -37,7 +40,7 @@ class Point():
 
     @y.setter
     def y(self, y):
-        assert type(y) is int and y >=0, f'y must be positive int number ({y})' 
+        assert isinstance(y, (int,float)) and y >=0, f'y must be positive int number ({y})' 
         self.__y = y
 
     @property
@@ -54,16 +57,59 @@ class Point():
     def __str__(self):
         return f'({self.x},{self.y}:visible {self.is_visible})'
 
+    def __eq__(self, other):
+        # self - ляв операнд
+        # other - десен операнд
+        if not isinstance(other, Point):
+            raise NotImplementedError(f'Not yet implemented')
+        return self.x == other.x and self.y == other.y
+
+    def __gt__(self, other):
+        if not isinstance(other, Point):
+            raise NotImplementedError(f'Not yet implemented')
+        
+        dx1 = self.x ** 2
+        dy1 = self.y ** 2
+        dist1 = sqrt(dx1 + dy1)
+
+        dx2 = other.x ** 2
+        dy2 = other.y ** 2
+        dist2 = sqrt(dx2 + dy2)
+
+        return dist1 > dist2
+
+    def __add__(self,other):
+        if isinstance(other,Point):
+            new_x = self.x + other.x
+            new_y = self.y + other.y
+        elif isinstance(other, (int,float)):
+            new_x = self.x + other
+            new_y = self.y + other
+        else:
+            raise NotImplementedError(f'Not yet implemented')
+
+        return Point(x=new_x, y=new_y)
+
 if __name__ == '__main__':
     # 2. променлива от тип Point (създаваме обект от тип Point)
     # клас - типът (Point), обект - представители на класа (променливите)
     p1 = Point(x=40, y=50)
-
+    p2 = Point(x=14, y=15)
 
     print(f'Point object:{p1}')
 
-    txt = '[' + str(p1) + ']'
+    if p1 == p2:
+        print(f'{p1} equals {p2}')
+    else:
+        print(f'{p1} does not equal {p2}')
 
-    print(txt)
+    if p1 > p2:
+        print(f'{p1} > {p2}')
 
+    
+    p3 = p1 + p2
+    print(f'{p1} + {p2} = {p3}')
+
+    p3 = p1 + 10.0
+    print(f'p3:{p3}')
     print('---')

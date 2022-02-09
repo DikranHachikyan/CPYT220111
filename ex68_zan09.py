@@ -1,5 +1,11 @@
 # 1. дефиниция на класа
 
+from math import sqrt
+
+
+class A():
+    pass
+
 class Point():
     
     def __init__(self, *args, x=0, y=0, **kwargs):
@@ -54,16 +60,48 @@ class Point():
     def __str__(self):
         return f'({self.x},{self.y}:visible {self.is_visible})'
 
+    def __eq__(self, other):
+        # self - ляв операнд
+        # other - десен операнд
+        if not isinstance(other, Point):
+            raise NotImplementedError(f'Not yet implemented')
+        return self.x == other.x and self.y == other.y
+
+    def __gt__(self, other):
+        if not isinstance(other, Point):
+            raise NotImplementedError(f'Not yet implemented')
+        
+        dx1 = self.x ** 2
+        dy1 = self.y ** 2
+        dist1 = sqrt(dx1 + dy1)
+
+        dx2 = other.x ** 2
+        dy2 = other.y ** 2
+        dist2 = sqrt(dx2 + dy2)
+
+        return dist1 > dist2
+
+
 if __name__ == '__main__':
     # 2. променлива от тип Point (създаваме обект от тип Point)
     # клас - типът (Point), обект - представители на класа (променливите)
     p1 = Point(x=40, y=50)
-
-
+    p2 = Point(x=14, y=15)
+    # a = A()
     print(f'Point object:{p1}')
+    # p = p1
+    if p1 == p2:
+    # if p1.x == p2.x and p1.y == p2.y:    
+        print(f'{p1} equals {p2}')
+    else:
+        print(f'{p1} does not equal {p2}')
 
-    txt = '[' + str(p1) + ']'
+    # if p1 == a:
+    #     print('test')
 
-    print(txt)
+    if p1 > p2:
+        print(f'{p1} > {p2}')
+
+    
 
     print('---')
