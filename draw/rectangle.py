@@ -1,4 +1,3 @@
-
 from draw import Point
 
 class Rectangle(Point):
@@ -33,14 +32,13 @@ class Rectangle(Point):
         super().draw()
         print(f'rectangle:[{self.width}, {self.height}]')
 
+    def __str__(self):
+        point_str = super().__str__()
+        return f'{point_str}[{self.width} x {self.height}]'
 
+    def __gt__(self, other):
+        if not isinstance(other, Rectangle):
+            raise NotImplementedError(f'Not yet implemented')   
+        p = super().__gt__(other)
 
-if __name__ == '__main__':
-
-    rc = Rectangle(x = 10, y = 20, w = 120, h = 160)
-
-    rc.draw()
-    rc.move_to(12, -5)
-    rc.draw()
-
-    print('---')
+        return p and (self.width * self.height) > (other.width * other.height) 

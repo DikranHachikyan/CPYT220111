@@ -98,7 +98,14 @@ class Point():
         Point.count -=1
         print(f'Object {self.x},{self.y} destroyed! n:{Point.count}')
 
-print(f'__name__ is {__name__}')
+    # class method <> static method
+    @classmethod
+    def from_point(cls, p):
+        if not isinstance(p, cls):
+            raise TypeError('Object must be of class {cls}')
+        return cls(x=p.x, y=p.y)
+
+# print(f'__name__ is {__name__}')
 
 if __name__ == '__main__':
     p = Point()
